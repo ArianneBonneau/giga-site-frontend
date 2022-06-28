@@ -121,6 +121,18 @@ export const StyledLabel = styled.p`
     font-size: 15px;
     font-weight: bold;
     font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    :after {
+        content:" *";
+        color: ${colors.red};
+        display:inline;
+    }
+    `;
+
+export const StyledLabel2 = styled.p`
+    text-align: left;
+    font-size: 15px;
+    font-weight: bold;
+    font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 `;
 
 export const StyledFormArea = styled.div`
@@ -203,7 +215,7 @@ export const CopyRightText = styled.p`
         font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
         text-align: center;
         color: ${colors.light2};
-        background-color: ${colors.theme};
+        background-color: #1e519b;
 `;
 
 

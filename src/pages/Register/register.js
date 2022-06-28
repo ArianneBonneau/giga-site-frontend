@@ -1,8 +1,8 @@
 import React,{useState} from 'react'
-
+import './style.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 //styled components
-import {StyledFormArea, StyledFormButton, StyledLabel, Avatar, StyledTitle, colors, ButtonGroup, ExtraText, TextLink, CopyRightText} from './../../components/Styles';
+import {StyledFormArea, StyledFormButton, StyledLabel, StyledLabel2, Avatar, StyledTitle, colors, ButtonGroup, ExtraText, TextLink, CopyRightText} from './../../components/Styles';
 
 //Logo
 import Logo from './../../favicon.png';
@@ -116,6 +116,8 @@ const saveUser = (userInfo) => {
 const CreateUser = (e) => {
     e.preventDefault();
     var val = /^(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,15}$/
+    var str = /^[a-zA-Z]+$/
+    var validEmail = /^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i
     //if none of the checkboxes are checked
     if(!isCheckedE && !isCheckedF){
         console.log(typeIn);
@@ -123,15 +125,21 @@ const CreateUser = (e) => {
     //if one of the field is empty
     } else if (!fnameIn || !lnameIn || !emailIn || !typeIn || !passwordIn || !passwordConfirmationIn || !phoneIn){
         alert("Tous les champs doivent être remplis!");
-     } //else if (fnameIn){
-    //     alert("Le mot de passe doit contenir au moins 8 charactères dont une lettre minuscule, une lettre majuscule et un charactère spécial.")
-    // } 
+    //if name is not a string
+    } else if (!fnameIn.match(str) || !lnameIn.match(str)){
+        alert("Le nom ne doit pas contenir de chiffre ou de symbol.");
+    //if email is invalid
+    } else if (!emailIn.match(validEmail)) {
+        alert("L'adresse courriel est invalide.");
+    //if phone is invalid
+    } else if (!phoneIn.match('[0-9]{10}')) {
+        alert("Le téléphone est invalide.");
     //if password does not contain 1 capital letter, one lower case letter and one symbol
-    else if (!passwordIn.match(val)){
-        alert("Le mot de passe doit contenir au moins 8 charactères dont une lettre minuscule, une lettre majuscule et un charactère spécial.")
+    } else if (!passwordIn.match(val)){
+        alert("Le mot de passe doit contenir au moins 8 charactères dont une lettre minuscule, une lettre majuscule et un charactère spécial.");
     //if password does not match password confirmation
-    } else if (passwordIn != passwordConfirmationIn) {
-        alert("Le mot de passe et la confirmation du mot de passe doivent être identiques.")
+    } else if (passwordIn !== passwordConfirmationIn) {
+        alert("Le mot de passe et la confirmation du mot de passe doivent être identiques.");
     //if everything is fine
     } else {
         const userInfo = {
@@ -166,43 +174,42 @@ const CreateUser = (e) => {
                     postalcode: "",
                     phone: ""                
                 }}
-                // userValidationSchema = {
-                //     Yup.object({
-                //         email: Yup.string().email("Invalid email address").required("Required"),
-                //         password: Yup.string().min(8, "Password is too short").max(15, "Password is too long").required("Required"),
-                //         fname: Yup.string().required("Required"),
-                //         lname: Yup.string().required("Required"),
-                //         type: Yup.string().required("Required"),
-                //         // address: Yup.string().required("Required"),
-                //         // office: Yup.string().required("Required"),
-                //         // country: Yup.string().required("Required"),
-                //         // province: Yup.string().required("Required"),
-                //         // city: Yup.string().required("Required"),
-                //         // postalcode: Yup.string().required("Required"),
-                //         phone: Yup.string().required("Required"),
-                //         passwordConfirmation: Yup.string().required("Required").oneOf([Yup.ref("password")], "Password must match")
-                //     })
-                // } 
                 >
                 {({isSubmitting}) => (
                     <Form onSubmit={CreateUser}>
                     <div className="row">
-                        <StyledLabel>TYPE DE COMPTE</StyledLabel>
+                        <StyledLabel className='required'>TYPE DE COMPTE</StyledLabel>
 
-                        <div className="col-6">
+                        <div className="col-6" style={{alignContent: "center"}}>
 
-                        <StyledLabel>
-                        <input
-                        name="type"
-                        type="checkbox"
-                        label="Entrepreneur"
-                        checked={isCheckedE}
-                        onChange={handleOnChangeE}  
-                        value="Entrepreneur" 
-                        /> Entrepreneur</StyledLabel>                        
-
+                        <div className="cbx">
+                        <StyledLabel2 style={{marginLeft: "50px"}}>
+                            <input id="cbx"
+                             name="type"
+                             type="checkbox"
+                             label="Entrepreneur"
+                             checked={isCheckedE}
+                             onChange={handleOnChangeE}  
+                             value="Entrepreneur" />
+                            <label htmlFor="cbx"></label>
+                            <svg width="15" height="14" viewBox="0 0 15 14" fill="none">
+                                <path d="M2 8.36364L6.23077 12L13 2"></path>
+                            </svg>
+                        Entrepreneur</StyledLabel2> 
+                        </div>
+                            <svg style={{width: "20px", height: "50px"}} xmlns="http://www.w3.org/2000/svg" version="1.1">
+                            <defs>
+                                <filter id="goo">
+                                <fegaussianblur in="SourceGraphic" stdDeviation="4" result="blur"></fegaussianblur>
+                                <fecolormatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -7" result="goo"></fecolormatrix>
+                                <feblend in="SourceGraphic" in2="goo"></feblend>
+                                </filter>
+                            </defs>
+                            </svg>
+                                        
                         <TextInput 
                         name="fname"
+                        className='required'
                         type="text"
                         label="PRÉNOM"
                         placeholder="Olga"
@@ -212,6 +219,7 @@ const CreateUser = (e) => {
                         />
                         <TextInput 
                         name="email"
+                        className='required'
                         type="text"
                         label="COURRIEL"
                         placeholder="olga@example.com"
@@ -219,17 +227,10 @@ const CreateUser = (e) => {
                         value={emailIn}
                         icon={<FiMail/>}
                         />
-                        {/* <TextInput 
-                        name="type"
-                        type="text"
-                        label="Type of user"
-                        onChange={(e) => setTypeIn(e.target.value)}
-                        value={typeIn}
-                        icon={<FiUser/>}
-                        /> */}
 
                         <TextInput 
                         name="password"
+                        className='required'
                         type="password"
                         label="MOT DE PASSE"
                         placeholder="********"
@@ -240,18 +241,37 @@ const CreateUser = (e) => {
                         
                         </div>
                         <div className="col-6">
-                        <StyledLabel>
-                            <input
-                        name="type"
-                        type="checkbox"
-                        label="Fournisseur"
-                        checked={isCheckedF}
-                        onChange={handleOnChangeF}  
-                        value="Fournisseur" 
-                        /> Fournisseur</StyledLabel>
+                        <div className="cbx">
+                            <StyledLabel2 style={{marginLeft: "50px"}}>
+
+                                <input id="cbx"
+                                name="type"
+                                type="checkbox"
+                                label="Fournisseur"
+                                checked={isCheckedF}
+                                onChange={handleOnChangeF}  
+                                value="Fournisseur" 
+                                /> 
+                           <label htmlFor="cbx"></label>
+                            <svg width="15" height="14" viewBox="0 0 15 14" fill="none">
+                                <path d="M2 8.36364L6.23077 12L13 2"></path>
+                            </svg>
+                            Fournisseur</StyledLabel2>
+                            </div>
+                            <svg style={{width: "20px", height: "50px"}} xmlns="http://www.w3.org/2000/svg" version="1.1" className=''>
+                            <defs>
+                                <filter id="goo">
+                                <fegaussianblur in="SourceGraphic" stdDeviation="4" result="blur"></fegaussianblur>
+                                <fecolormatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -7" result="goo"></fecolormatrix>
+                                <feblend in="SourceGraphic" in2="goo"></feblend>
+                                </filter>
+                            </defs>
+                            </svg>
+
 
                         <TextInput 
                         name="lname"
+                        className='required'
                         type="text"
                         label="NOM DE FAMILLE"
                         placeholder="Simpson"
@@ -261,15 +281,17 @@ const CreateUser = (e) => {
                         />
                         <TextInput 
                         name="phone"
+                        className='required'
                         type="text"
                         label="TÉLÉPHONE"
-                        placeholder="514-111-1111"
+                        placeholder="5142345617"
                         onChange={(e) => setPhoneIn(e.target.value)}
                         value={phoneIn}
                         icon={<FiPhone/>}
                         />
                         <TextInput 
                         name="passwordConfirmation"
+                        className='required'
                         type="password"
                         label="CONFIRMATION DU MOT DE PASSE"
                         placeholder="********"
@@ -277,54 +299,6 @@ const CreateUser = (e) => {
                         value={passwordConfirmationIn}
                         icon={<FiLock/>}
                         />
-                        {/* <TextInput 
-                        name="address"
-                        type="text"
-                        label="Address"
-                        onChange={(e) => setAddressIn(e.target.value)}
-                        value={addressIn}
-                        icon={<FiMapPin/>}
-                        />
-                         <TextInput 
-                        name="office"
-                        type="text"
-                        label="Office number"
-                        onChange={(e) => setOfficeIn(e.target.value)}
-                        value={officeIn}
-                        icon={<FiMap/>}
-                        />
-                         <TextInput 
-                        name="country"
-                        type="text"
-                        label="Country"
-                        onChange={(e) => setCountryIn(e.target.value)}
-                        value={countryIn}
-                        icon={<FiMap/>}
-                        />
-                         <TextInput 
-                        name="province"
-                        type="text"
-                        label="Province"
-                        onChange={(e) => setProvinceIn(e.target.value)}
-                        value={provinceIn}
-                        icon={<FiMap/>}
-                        />
-                         <TextInput 
-                        name="city"
-                        type="text"
-                        label="City"
-                        onChange={(e) => setCityIn(e.target.value)}
-                        value={cityIn}
-                        icon={<FiMap/>}
-                        />
-                         <TextInput 
-                        name="postalcode"
-                        type="text"
-                        label="Postal code"
-                        value={postalcodeIn}
-                        onChange={(e) => setPostalcodeIn(e.target.value)}
-                        icon={<FiMapPin/>}
-                        /> */}
                         </div>
                     </div>
                         <ButtonGroup>
