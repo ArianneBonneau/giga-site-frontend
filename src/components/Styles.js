@@ -90,8 +90,8 @@ export const ButtonGroup = styled.div`
 export const StyledTextInput = styled.input`
     width: 280px;
     padding: 10px;
-    padding-left: 40px;
-    font-size: 17px;
+    padding-left: 45px;
+    font-size: 18px;
     letter-spacing: 1px;
     font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     color: ${colors.dark1};
@@ -99,7 +99,7 @@ export const StyledTextInput = styled.input`
     border: 0;
     outline:0;
     display: block;
-    margin: 5px auto  px auto;
+    margin: 5px auto 0 -10px;
     transition: ease-in-out 0.3s;
 
     ${(props) => props.invalid && `background-color: ${colors.red}; color: ${colors.primary};`}
@@ -204,8 +204,8 @@ export const StyledIcon = styled.p`
     position: absolute;
     font-size: 21px;
     top: 45px;
-    ${(props) => props.right && `right: 75px; `};
-    ${(props) => props.right && `left: 250px;`};
+    ${(props) => props.right && `right: 50px; `};
+    ${(props) => props.right && `left: 200px;`};
 `;
 
 //copyright

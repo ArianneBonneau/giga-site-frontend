@@ -17,14 +17,12 @@ const Home = () => {
                 display: "flex",
                 justifyContent: "flex-start"  
             }}>
-                <Avatar image={Logo} style={{height: "42px", width: "300px"}}
-/>
             </div>
             <StyledTitle size={65}>
-                Welcome to GIGA SITE
+                Bienvenue chez GIGA SITE
             </StyledTitle>
-            <StyledSubTitle size={27}>
-                Feel free to explore our page
+            <StyledSubTitle size={27} style={{backgroundColor: "#1F2937", opacity: "0.8", padding: "0", color: "#2176FF"}}>
+                Le marché pour les matériaux de construction
             </StyledSubTitle>
 
             <ButtonGroup>

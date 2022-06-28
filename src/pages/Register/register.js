@@ -2,7 +2,7 @@ import React,{useState} from 'react'
 import './style.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 //styled components
-import {StyledFormArea, StyledFormButton, StyledLabel, StyledLabel2, Avatar, StyledTitle, colors, ButtonGroup, ExtraText, TextLink, CopyRightText} from './../../components/Styles';
+import {StyledFormArea, StyledFormButton, StyledLabel, StyledLabel2, Avatar, StyledTitle, ButtonGroup, ExtraText, TextLink, CopyRightText} from './../../components/Styles';
 
 //Logo
 import Logo from './../../favicon.png';
@@ -91,19 +91,41 @@ const saveUser = (userInfo) => {
             },
             body: JSON.stringify({userInfo})
         })
-        .then(console.log(userInfo))
         .then((res) => {
             //if request response is ok
             if(res.ok){
-                console.log(res);
                 //redirect to login page
                 navigate("/login");
-            //if request response is not ok
-            } else {
                 console.log(res);
+            //if request response is not ok
+            } else if (!res.ok) {
                 //redirect to register page
                 alert("Une erreur s'est produite lors de la création de votre compte, veuillez réessayer.");
+                console.log(res);
                 navigate("/register");
+            }
+        })
+        .then(console.log(userInfo))
+        .catch(err => {
+            // Do something for an error here
+            console.log("Error Reading data " + err);
+          });
+    }
+
+    const verifyIfUserExist = (emailIn) => {
+        const userInfo = {
+            fnameIn, lnameIn, emailIn, typeIn,  passwordIn, passwordConfirmationIn, phoneIn
+        }
+    
+        fetch(`http://localhost:3000/api/users/${emailIn}`)
+        .then(console.log(emailIn))
+        .then((res) => {
+            if(res.ok){
+                console.log(res);
+                alert("Un utilisateur existe déjà pour ce courriel.");
+            } else if(!res.ok) {
+                saveUser(userInfo);
+                console.log(res);
             }
         })
         .catch(err => {
@@ -116,7 +138,7 @@ const saveUser = (userInfo) => {
 const CreateUser = (e) => {
     e.preventDefault();
     var val = /^(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,15}$/
-    var str = /^[a-zA-Z]+$/
+    var str = /^[a-zA-Z ,.'-]+$/
     var validEmail = /^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i
     //if none of the checkboxes are checked
     if(!isCheckedE && !isCheckedF){
@@ -142,11 +164,12 @@ const CreateUser = (e) => {
         alert("Le mot de passe et la confirmation du mot de passe doivent être identiques.");
     //if everything is fine
     } else {
-        const userInfo = {
-            fnameIn, lnameIn, emailIn, typeIn,  passwordIn, passwordConfirmationIn, phoneIn
-        }
-        //call function to save user in db
-        saveUser(userInfo);
+        verifyIfUserExist(emailIn);
+        // const userInfo = {
+        //     fnameIn, lnameIn, emailIn, typeIn,  passwordIn, passwordConfirmationIn, phoneIn
+        // }
+        // //call function to verify if user in db
+        // saveUser(userInfo);
     }
    
 }
@@ -155,7 +178,7 @@ const CreateUser = (e) => {
        <div>
         <StyledFormArea>
             <Avatar image={Logo}/>
-            <StyledTitle color={colors.theme} size={30}>
+            <StyledTitle color="#1e519b" size={30}>
                 INSCRIPTION
             </StyledTitle>
             <Formik

@@ -1,6 +1,7 @@
 import Home from "./pages/Home/home"
 import Login from "./pages/Login/login"
 import Register from "./pages/Register/register"
+import Navbar from "./components/Navbar/Navbar";
 //styled components
 import {StyledContainer} from './components/Styles'
 
@@ -20,6 +21,7 @@ import {
 function App() {
   return (
     <Router>
+      <Navbar/>
     <StyledContainer style={{backgroundImage: `url(${background})`, backgroundSize: "cover", opacity: 0.9}}>
      <div className="App">
       <Routes>

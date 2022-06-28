@@ -38,8 +38,8 @@ const Login = () => {
             },
             body: JSON.stringify({user})
         })
-        .then(console.log(user))
         .then(res => console.log(res))
+        .then(console.log(user))
         //.then(json => setUser(js))
         //.then(data => console.log(data))
         .catch(err => {
@@ -76,7 +76,7 @@ const Login = () => {
        <div>
         <StyledLoginArea>
             <Avatar image={Logo}/>
-            <StyledTitle color={colors.theme} size={30}>
+            <StyledTitle color="#1e519b" size={30}>
                 Member Login
             </StyledTitle>
             <Formik
@@ -101,7 +101,7 @@ const Login = () => {
                         value={email}
                         icon={<FiMail/>}
                         />
-                        <TextInput 
+                        <TextInput style={{marginRight: "-10"}}
                         name="password"
                         type="password"
                         label="Password"
