@@ -2,6 +2,7 @@ import Home from "./pages/Home/home"
 import Login from "./pages/Login/login"
 import Register from "./pages/Register/register"
 import Navbar from "./components/Navbar/Navbar";
+import Footer from "./components/Footer/Footer";
 //styled components
 import {StyledContainer} from './components/Styles'
 
@@ -31,6 +32,7 @@ function App() {
       </Routes>
      </div>
     </StyledContainer>
+    <Footer/>
     </Router>
   );
 }

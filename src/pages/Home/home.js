@@ -21,7 +21,7 @@ const Home = () => {
             <StyledTitle size={65}>
                 Bienvenue chez GIGA SITE
             </StyledTitle>
-            <StyledSubTitle size={27} style={{backgroundColor: "#1F2937", opacity: "0.8", padding: "0", color: "#2176FF"}}>
+            <StyledSubTitle size={27} style={{background: "rgba(31, 41, 55, 0.8)", padding: "0", marginRight: "15%", marginLeft: "15%", color: "#2176FF"}}>
                 Le marché pour les matériaux de construction
             </StyledSubTitle>
 

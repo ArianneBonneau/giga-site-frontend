@@ -9,22 +9,15 @@ import Logo from './../../favicon.png';
 //formik
 import {Formik, Form} from 'formik';
 import {TextInput} from "./../../components/FormLib";
-import * as Yup from 'yup';
 
 //icons
 import {FiMail, FiLock} from 'react-icons/fi';
 
-//loader
-import * as Loader from 'react-loader-spinner';
-
-//auth & redux
-import {connect} from 'react-redux';
 import {useNavigate} from "react-router-dom";
 
 const Login = () => {
     
-    const history = useNavigate()
-    //const [user, setUser] = useState([]);
+    const navigate = useNavigate()
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -38,10 +31,18 @@ const Login = () => {
             },
             body: JSON.stringify({user})
         })
-        .then(res => console.log(res))
+        .then((res) => {
+            if(res.ok){
+                navigate("/");
+                console.log(res);
+            } else if (!res.ok){
+                alert("Il n'y a pas de compte pour ce courriel, ou le mot de passe n'est pas le bon.");
+                console.log(res);
+            }
+           
+        })
+        
         .then(console.log(user))
-        //.then(json => setUser(js))
-        //.then(data => console.log(data))
         .catch(err => {
             // Do something for an error here
             console.log("Error Reading data " + err);
@@ -54,22 +55,11 @@ const Login = () => {
             "email": email,
             "password": password
         }
-        login(user)
-        // fetch("http://localhost:3000/api/users/login")
-        // .then(console.log(email))
-        // .then(res => console.log(res))
-        // .then((data) => setUser(data))
-        // .catch(err => {
-        //     console.log("Error Reading data " + err);
-        //   });
-        //   console.log(password);
-        //   console.log(user);
-
-        //   if ( user.password === password){
-        //     console.log("users exists");
-        // } else {
-        //     console.log(user.data);
-        // }
+        if (!email || !password){
+            alert("Vous devez remplir tous les champs!")
+        } else {
+            login(user)
+        }
     }
 
     return (
@@ -77,25 +67,19 @@ const Login = () => {
         <StyledLoginArea>
             <Avatar image={Logo}/>
             <StyledTitle color="#1e519b" size={30}>
-                Member Login
+                Connexion
             </StyledTitle>
             <Formik
                 initialValues={{
                     email: "",
                     password: ""                
-                }}
-                validationSchema={
-                    Yup.object({
-                        email: Yup.string().email("Invalid email address").required("Required"),
-                        password: Yup.string().min(8, "Password is too short").max(30, "Password is too long").required("Required"),
-                    })
-                }>
+                }}>
                 {({isSubmitting}) => (
                     <Form onSubmit={retrieveUser}>
                         <TextInput 
                         name="email"
                         type="text"
-                        label="Email Address"
+                        label="Courriel"
                         placeholder="olga@example.com"
                         onChange={(e) => setEmail(e.target.value)}
                         value={email}
@@ -104,7 +88,7 @@ const Login = () => {
                         <TextInput style={{marginRight: "-10"}}
                         name="password"
                         type="password"
-                        label="Password"
+                        label="Mot de passe"
                         placeholder="********"
                         onChange={(e) => setPassword(e.target.value)}
                         value={password}
@@ -112,18 +96,18 @@ const Login = () => {
                         />
                         <ButtonGroup>
                         <StyledFormButton type="submit">
-                            Login
+                            Connexion
                         </StyledFormButton>
                         </ButtonGroup>
                     </Form>
                 )}
             </Formik>
             <ExtraText>
-                New here? <TextLink to="/register">Register</TextLink>
+                Vous n'avez pas de compte? <TextLink to="/register">Inscription</TextLink>
             </ExtraText>
         </StyledLoginArea>
         <CopyRightText>
-            All rights reserved &copy;2022
+            Tous droits réservés &copy;2022
         </CopyRightText>
        </div>
     )

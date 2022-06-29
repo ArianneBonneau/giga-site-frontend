@@ -149,13 +149,14 @@ export const StyledLoginArea = styled.div`
 `;
 
 export const StyledFormButton = styled.button`
-        padding: 10px;
-        width: 150px;
+        padding: 9px;
+        width: fit-content;
         background-color: transparent;
+        font-weight: bold;
         font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
         font-size: 16px;
-        border: 3px solid ${colors.theme};
-        border-radius: 25px;
+        border: 2px solid ${colors.theme};
+        border-radius: 0;
         color: ${colors.theme};
         transition: ease-in-out 0.3s;
 

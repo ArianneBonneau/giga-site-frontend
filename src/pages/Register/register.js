@@ -165,11 +165,6 @@ const CreateUser = (e) => {
     //if everything is fine
     } else {
         verifyIfUserExist(emailIn);
-        // const userInfo = {
-        //     fnameIn, lnameIn, emailIn, typeIn,  passwordIn, passwordConfirmationIn, phoneIn
-        // }
-        // //call function to verify if user in db
-        // saveUser(userInfo);
     }
    
 }
