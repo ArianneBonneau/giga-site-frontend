@@ -8,6 +8,7 @@ import {StyledContainer} from './components/Styles'
 
 import background from './bg.png';
 
+import {useMediaQuery} from 'react-responsive';
 
  //loader css
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
@@ -20,9 +21,10 @@ import {
 } from 'react-router-dom';
 
 function App() {
+
   return (
     <Router>
-      <Navbar/>
+    <Navbar />
     <StyledContainer style={{backgroundImage: `url(${background})`, backgroundSize: "cover", opacity: 0.9}}>
      <div className="App">
       <Routes>
